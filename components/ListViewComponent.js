@@ -11,6 +11,10 @@ const users = [
 const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 
 export default class ListViewComponent extends React.Component {
+  static navigationOptions = {
+    title: 'ListView'
+  };
+
   state = {
     userDataSource: ds.cloneWithRows(users)
   };

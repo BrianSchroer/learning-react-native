@@ -7,10 +7,14 @@ import {
   TouchableHighlight,
   TouchableOpacity
 } from 'react-native';
-import TextInputComponent from './TextInputComponent';
+import InputComponents from './InputComponents';
 import ListViewComponent from './ListViewComponent';
 
 export default class Component1 extends React.Component {
+  static navigationOptions = {
+    title: 'Component1'
+  };
+
   static propTypes = {
     message: PropTypes.string.isRequired
   };
@@ -48,7 +52,7 @@ export default class Component1 extends React.Component {
             <Text style={styles.vText}>View 3</Text>
           </TouchableHighlight>
         </View>
-        <TextInputComponent />
+        <InputComponents />
         <ListViewComponent />
       </View>
     );

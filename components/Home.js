@@ -8,11 +8,18 @@ import {
   TouchableHighlight
 } from 'react-native';
 
+const menuItems = [
+  { routeName: 'Component1', description: 'Component1' },
+  { routeName: 'ListView', description: 'ListView' },
+  { routeName: 'InputComponents', description: 'Input Components' },
+  { routeName: 'UserList', description: 'UserList' }
+];
+
 const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 
-export default class UserList extends React.Component {
+export default class Home extends React.Component {
   static navigationOptions = {
-    title: 'User List'
+    title: 'Home'
   };
 
   static propTypes = {
@@ -24,26 +31,24 @@ export default class UserList extends React.Component {
   };
 
   componentDidMount() {
-    this.fetchUsers();
+    this.buildMenu();
   }
 
-  async fetchUsers() {
-    const response = await fetch('http://jsonplaceholder.typicode.com/users');
-    const json = await response.json();
+  buildMenu() {
     this.setState({
-      userDataSource: this.state.userDataSource.cloneWithRows(json)
+      userDataSource: this.state.userDataSource.cloneWithRows(menuItems)
     });
   }
 
-  displayUserDetails(user) {
-    this.props.navigation.navigate('UserDetails', { user });
+  handleMenuItemSelect(menuItem) {
+    this.props.navigation.navigate(menuItem.routeName);
   }
 
-  renderRow = user => {
+  renderRow = menuItem => {
     return (
-      <TouchableHighlight onPress={() => this.displayUserDetails(user)}>
+      <TouchableHighlight onPress={() => this.handleMenuItemSelect(menuItem)}>
         <View style={styles.row}>
-          <Text style={styles.rowText}>{user.name}</Text>
+          <Text style={styles.rowText}>{menuItem.description}</Text>
         </View>
       </TouchableHighlight>
     );
