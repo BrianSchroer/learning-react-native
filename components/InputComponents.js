@@ -18,13 +18,18 @@ export default class InputComponents extends React.Component {
 
   state = {
     textValue: '',
+    emailAddress: '',
+    numeric: '',
+    phonePad: '',
     switchValue: false,
     language: 'js',
     date: new Date()
   };
 
-  handleTextChange = value => {
-    this.setState({ textValue: value });
+  handleTextChange = (key, value) => {
+    const newState = {};
+    newState[key] = value;
+    this.setState(newState);
   };
 
   handlePickerChange = (value, index) => {
@@ -54,9 +59,31 @@ export default class InputComponents extends React.Component {
       <View>
         <Text style={styles.label}>TextInput:</Text>
         <TextInput
+          style={styles.textInput}
           placeholder="Enter Text"
           value={this.state.textValue}
-          onChangeText={this.handleTextChange}
+          onChangeText={value => this.handleTextChange('textValue', value)}
+        />
+        <TextInput
+          style={styles.textInput}
+          placeholder="Email Address"
+          value={this.state.emailAddress}
+          onChangeText={value => this.handleTextChange('emailAddress', value)}
+          keyboardType={'email-address'}
+        />
+        <TextInput
+          style={styles.textInput}
+          placeholder="Numeric"
+          value={this.state.numeric}
+          onChangeText={value => this.handleTextChange('numeric', value)}
+          keyboardType={'numeric'}
+        />
+        <TextInput
+          style={styles.textInput}
+          placeholder="Phone Pad"
+          value={this.state.phonePad}
+          onChangeText={value => this.handleTextChange('phonePad', value)}
+          keyboardType={'phone-pad'}
         />
         <Text style={styles.label}>Switch:</Text>
         <Switch
@@ -82,5 +109,12 @@ export default class InputComponents extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  label: { fontWeight: 'bold' }
+  label: { fontWeight: 'bold' },
+  textInput: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginLeft: 3,
+    marginRight: 3
+  }
 });
