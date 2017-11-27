@@ -16,7 +16,8 @@ const menuItems = [
   { routeName: 'InputComponents', description: 'Input Components' },
   { routeName: 'UserList', description: 'UserList' },
   { routeName: 'Modals', description: 'Modals and Alerts' },
-  { routeName: 'WebView', description: 'Web View' }
+  { routeName: 'WebView', description: 'Web View' },
+  { routeName: 'Animated', description: 'Animated API' }
 ];
 
 const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
