@@ -5,7 +5,10 @@ import {
   Picker,
   Text,
   TextInput,
-  Switch
+  Switch,
+  DatePickerAndroid,
+  Button,
+  Alert
 } from 'react-native';
 
 export default class InputComponents extends React.Component {
@@ -16,7 +19,8 @@ export default class InputComponents extends React.Component {
   state = {
     textValue: '',
     switchValue: false,
-    language: 'js'
+    language: 'js',
+    date: new Date()
   };
 
   handleTextChange = value => {
@@ -29,6 +33,20 @@ export default class InputComponents extends React.Component {
 
   handleSwitchChange = value => {
     this.setState({ switchValue: value });
+  };
+
+  handleDatePickerRequest = async () => {
+    try {
+      const { action, year, month, day } = await DatePickerAndroid.open({
+        date: this.state.date
+      });
+      if (action !== DatePickerAndroid.dismissedAction) {
+        const date = new Date(year, month, day);
+        this.setState({ date });
+      }
+    } catch ({ code, message }) {
+      console.warn('DatePicker error', message);
+    }
   };
 
   render() {
@@ -55,6 +73,9 @@ export default class InputComponents extends React.Component {
           <Picker.Item label="C#" value="cs" />
           <Picker.Item label="Python" value="python" />
         </Picker>
+        <Text style={styles.label}>DatePickerAndroid:</Text>
+        <Button onPress={this.handleDatePickerRequest} title="Pick a Date" />
+        <Text>{this.state.date.toLocaleDateString()}</Text>
       </View>
     );
   }

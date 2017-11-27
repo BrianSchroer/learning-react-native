@@ -5,14 +5,18 @@ import {
   View,
   Text,
   ListView,
-  TouchableHighlight
+  TouchableHighlight,
+  Image,
+  Dimensions
 } from 'react-native';
 
 const menuItems = [
   { routeName: 'Component1', description: 'Component1' },
   { routeName: 'ListView', description: 'ListView' },
   { routeName: 'InputComponents', description: 'Input Components' },
-  { routeName: 'UserList', description: 'UserList' }
+  { routeName: 'UserList', description: 'UserList' },
+  { routeName: 'Modals', description: 'Modals and Alerts' },
+  { routeName: 'WebView', description: 'Web View' }
 ];
 
 const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
@@ -55,8 +59,14 @@ export default class Home extends React.Component {
   };
 
   render() {
+    const { width } = Dimensions.get('window');
     return (
       <View>
+        <Image
+          source={require('../images/ReactNative.png')}
+          resizeMode={'cover'}
+          style={{ width }}
+        />
         <ListView
           dataSource={this.state.userDataSource}
           renderRow={this.renderRow}

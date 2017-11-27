@@ -6,6 +6,8 @@ import UserDetails from './components/UserDetails';
 import Component1 from './components/Component1';
 import ListViewComponent from './components/ListViewComponent';
 import InputComponents from './components/InputComponents';
+import Modals from './components/Modals';
+import WebViewComponent from './components/WebViewComponent';
 
 const AppNavigation = StackNavigator({
   Home: { screen: Home },
@@ -13,7 +15,9 @@ const AppNavigation = StackNavigator({
   UserDetails: { screen: UserDetails },
   Component1: { screen: Component1 },
   ListView: { screen: ListViewComponent },
-  InputComponents: { screen: InputComponents }
+  InputComponents: { screen: InputComponents },
+  Modals: { screen: Modals },
+  WebView: { screen: WebViewComponent }
 });
 
 export default class App extends React.Component {
