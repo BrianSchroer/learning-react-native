@@ -15,7 +15,7 @@ const menuItems = [
   { routeName: 'ListView', description: 'ListView' },
   { routeName: 'InputComponents', description: 'Input Components' },
   { routeName: 'UserList', description: 'UserList' },
-  { routeName: 'Modals', description: 'Modals and Alerts' },
+  { routeName: 'Modals', description: 'Modals, Alerts and Toast' },
   { routeName: 'WebView', description: 'Web View' },
   { routeName: 'Animated', description: 'Animated API' }
 ];

@@ -6,7 +6,7 @@ import {
   StyleSheet,
   Modal,
   Text,
-  TouchableHighlight
+  ToastAndroid
 } from 'react-native';
 
 export default class Modals extends React.Component {
@@ -45,6 +45,10 @@ export default class Modals extends React.Component {
     );
   };
 
+  displayToast = () => {
+    ToastAndroid.show('Toast is ready!', ToastAndroid.SHORT);
+  };
+
   handleAlertDismissed = () => {
     this.displayAlert('Alert was dismissed by pressing "outside the box"');
   };
@@ -64,6 +68,9 @@ export default class Modals extends React.Component {
             onPress={this.displayMultiButtonAlert}
             title="Display multi-button alert"
           />
+        </View>
+        <View style={styles.row}>
+          <Button title="Toast" onPress={this.displayToast} />
         </View>
         <View style={styles.row} />
         <Button title="Show Modal" onPress={() => this.setModalVisible(true)} />

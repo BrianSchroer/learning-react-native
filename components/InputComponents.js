@@ -7,8 +7,8 @@ import {
   TextInput,
   Switch,
   DatePickerAndroid,
-  Button,
-  Alert
+  TimePickerAndroid,
+  Button
 } from 'react-native';
 
 export default class InputComponents extends React.Component {
@@ -40,14 +40,30 @@ export default class InputComponents extends React.Component {
     this.setState({ switchValue: value });
   };
 
-  handleDatePickerRequest = async () => {
+  handleDateTimeRequest = async () => {
+    const { date } = this.state;
     try {
-      const { action, year, month, day } = await DatePickerAndroid.open({
-        date: this.state.date
+      const {
+        action: datePickerAction,
+        year,
+        month,
+        day
+      } = await DatePickerAndroid.open({
+        date
       });
-      if (action !== DatePickerAndroid.dismissedAction) {
-        const date = new Date(year, month, day);
-        this.setState({ date });
+      if (datePickerAction !== DatePickerAndroid.dismissedAction) {
+        const {
+          action: timePickerAction,
+          hour,
+          minute
+        } = await TimePickerAndroid.open({
+          hour: date.getHours(),
+          minute: date.getMinutes()
+        });
+        if (timePickerAction !== TimePickerAndroid.dismissedAction) {
+          const newDate = new Date(year, month, day, hour, minute);
+          this.setState({ date: newDate });
+        }
       }
     } catch ({ code, message }) {
       console.warn('DatePicker error', message);
@@ -55,6 +71,7 @@ export default class InputComponents extends React.Component {
   };
 
   render() {
+    const { date } = this.state;
     return (
       <View>
         <Text style={styles.label}>TextInput:</Text>
@@ -101,8 +118,10 @@ export default class InputComponents extends React.Component {
           <Picker.Item label="Python" value="python" />
         </Picker>
         <Text style={styles.label}>DatePickerAndroid:</Text>
-        <Button onPress={this.handleDatePickerRequest} title="Pick a Date" />
-        <Text>{this.state.date.toLocaleDateString()}</Text>
+        <Button onPress={this.handleDateTimeRequest} title="Pick a Date/Time" />
+        <Text>
+          {`${date.toLocaleDateString()} ${date.toLocaleTimeString()}`}
+        </Text>
       </View>
     );
   }
